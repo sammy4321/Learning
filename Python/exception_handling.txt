@@ -1,0 +1,15 @@
+Exception handling
+
+The code then has three types of exceptions:
+1. FileNotFoundError: This exception is raised if the file existing-file.txt is not found.
+2. IOError: This exception is raised if there is an Input/Output error while working with the file.
+If any of these exceptions occur, the corresponding except block will be executed.
+
+The except blocks : 
+1. If FileNotFoundError is raised, it will print "Error: File not found!" to the console.
+2. If IOError is raised, it will print "Error: I/O error!" to the console.
+
+The else block : The else block is executed if no exception occurs in the try block. In this case, it will print "Read file successfully!" to the console, indicating that the file was read successfully.
+
+The finally block : The finally block is always executed, regardless of whether an exception occurred or not. In this case, it will print "Closing file..." to the console, even if an exception occurred. This is a good place to put code that should always be executed, like closing the file.
+
