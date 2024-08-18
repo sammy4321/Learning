@@ -1,0 +1,25 @@
+In PostgreSQL, a sequence is a special kind of database object that is used to generate unique numeric values, typically used for auto-incrementing primary keys. Sequences are very similar to the AUTO_INCREMENT feature in other databases like MySQL, but they offer more flexibility and control.
+
+Key Features of Sequences : 
+1. Automatic Incrementing: Sequences automatically generate a unique integer each time they are called. By default, they start from 1 and increment by 1, but these values can be customized.
+2. Independent of Tables:Unlike AUTO_INCREMENT in some databases, PostgreSQL sequences are independent objects. They can be associated with multiple tables or used independently for other purposes.
+3. Customizable Parameters:You can define the starting point, increment value, minimum value, maximum value, and whether the sequence should cycle when it reaches the maximum value.
+4. Concurrency-Safe:Sequences are designed to be used safely in a concurrent environment, ensuring that each session gets a unique value even when multiple sessions are requesting a new sequence value simultaneously.
+
+Creating a Sequence :
+CREATE SEQUENCE sequence_name
+  START WITH 1
+  INCREMENT BY 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  CACHE 1;
+
+Using Sequence : 
+SELECT nextval('sequence_name'); - To get next value
+SELECT currval('sequence_name'); - To get current value without incrementing
+SELECT setval('sequence_name', new_value); - To set sequence to a specific value. 
+
+
+Using sequence with tables : 
+CREATE SEQUENCE user_id_seq START WITH 1000 INCREMENT BY 1;
+CREATE TABLE users (user_id INT DEFAULT nextval('user_id_seq'), username TEXT);

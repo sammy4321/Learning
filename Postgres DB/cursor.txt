@@ -1,0 +1,42 @@
+In PostgreSQL, a cursor is a database object used to retrieve a small number of rows from a larger result set one at a time, rather than retrieving all the rows at once. Cursors are particularly useful when dealing with large datasets or when you need to process rows individually in procedural code, such as within a PL/pgSQL function.
+
+Here’s a detailed example that shows how to use cursors in PostgreSQL:
+
+Example: Using a Cursor to Iterate Over a Result Set
+Suppose you have a table named employees and you want to process each employee's data individually. You can use a cursor to fetch and process each row one by one.
+
+Step 1: Create the employees Table
+-- Creating the employees table
+CREATE TABLE employees (employee_id SERIAL PRIMARY KEY,employee_name TEXT NOT NULL,department TEXT,salary NUMERIC);
+
+-- Inserting sample data into the employees table
+INSERT INTO employees (employee_name, department, salary) VALUES('John Doe', 'HR', 50000),('Jane Smith', 'Finance', 60000),('Alice Johnson', 'IT', 70000),('Bob Brown', 'Marketing', 55000);
+
+Step 2: Create a Function that Uses a Cursor : 
+-- Creating a function to iterate over the employees table using a cursor
+CREATE OR REPLACE FUNCTION process_employees()
+RETURNS VOID AS $$
+DECLARE
+    emp_cursor CURSOR FOR SELECT employee_id, employee_name, department, salary FROM employees;
+    emp_record RECORD;
+BEGIN
+    -- Open the cursor
+    OPEN emp_cursor;
+
+    -- Loop through each row returned by the cursor
+    LOOP
+        -- Fetch the next row into emp_record
+        FETCH emp_cursor INTO emp_record;
+        
+        -- Exit the loop if no more rows are fetched
+        EXIT WHEN NOT FOUND;
+        
+        -- Process each row (example: raise a notice)
+        RAISE NOTICE 'Processing Employee ID: %, Name: %, Department: %, Salary: %',
+            emp_record.employee_id, emp_record.employee_name, emp_record.department, emp_record.salary;
+    END LOOP;
+
+    -- Close the cursor
+    CLOSE emp_cursor;
+END;
+$$ LANGUAGE plpgsql;

@@ -1,0 +1,42 @@
+Simple View : 
+CREATE VIEW simplest_view AS SELECT * FROM customers WHERE country='USA';
+
+Derived View : 
+CREATE VIEW orders_sum AS SELECT customer_id, SUM(total) AS total_orders FROM orders GROUP BY customer_id;
+
+Materialized View : This materialized view calculates the daily sales statistics for each day and stores the results in a physical table. The view is updated periodically using the REFRESH MATERIALIZED VIEW command.
+CREATE MATERIALIZED VIEW sales_stats AS SELECT date_trunc('day', sale_date) AS day, SUM(sale_amount) AS daily_sales FROM sales GROUP BY date_trunc('day', sale_date);
+
+Choosing a materialized view instead of a table in PostgreSQL can offer several advantages depending on the use case. Here’s why you might opt for a materialized view over a table:
+
+1. Performance Improvement for Complex Queries
+    Materialized Views: They store the result of a complex query physically on disk, which can be queried directly, bypassing the need to execute the underlying query repeatedly. This is beneficial for complex queries that are resource-intensive and time-consuming to run frequently.
+    Tables: If you were to manually populate a table with the results of a complex query, you'd need to ensure the data is kept up-to-date manually, which can be cumbersome and error-prone.
+2. Automatic Query Result Storage
+    Materialized Views: They automatically store the result of the query that defines the view. This makes it easier to work with as the materialized view behaves like a table but is updated only when explicitly refreshed.
+    Tables: To replicate this behavior with a table, you’d have to create a process to insert or update data based on the query results, adding complexity.
+3. Data Consistency with Refreshes
+    Materialized Views: You can control when the materialized view is refreshed (either manually or on a schedule), ensuring that the data is consistent with the underlying base tables at the time of the refresh.
+    Tables: Keeping the table data in sync with the underlying data sources requires custom scripts or triggers, which adds maintenance overhead.
+4. Reduced Storage and Maintenance Overhead
+    Materialized Views: They can be a more storage-efficient solution when you want to store precomputed data for reporting or analytical purposes without needing to maintain complex ETL processes.
+    Tables: With tables, you might end up duplicating data or having to maintain additional logic to keep the data updated.
+5. Simplified Querying
+    Materialized Views: Users can query the materialized view directly as if it were a regular table, simplifying access to precomputed, complex query results without needing to understand the underlying query logic.
+    Tables: While you can achieve a similar outcome with tables, it typically requires more effort in terms of creating, populating, and maintaining the data.
+6. Ease of Use for Reporting
+    Materialized Views: Ideal for reporting systems where you need to present aggregated or complex data that doesn’t change frequently. The materialized view provides a snapshot that can be refreshed at appropriate intervals.
+    Tables: While tables can serve a similar purpose, you would need to manage the data population and synchronization manually.
+7. Query Optimization
+    Materialized Views: Can be indexed just like tables, allowing for faster query performance. Additionally, they can be refreshed incrementally (in some cases), making them more efficient.
+    Tables: You would need to implement similar optimizations manually if using tables, which could involve additional maintenance.
+When Not to Use Materialized Views:
+    1. If the data changes frequently and you need real-time access to the latest data, materialized views might not be suitable because they only reflect the state of the data at the last refresh.
+    2. If the overhead of maintaining and refreshing a materialized view outweighs the performance benefits, a regular table or a regular view (without materialization) might be more appropriate.
+Summary : Materialized views are best used when you need to store the results of a complex and time-consuming query, and you can tolerate the data being slightly out of date. They offer significant performance benefits and reduce the complexity of maintaining derived data. However, if your data requires real-time accuracy or frequent updates, a regular table or another approach may be more suitable.
+
+
+
+
+
+

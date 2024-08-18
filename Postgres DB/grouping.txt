@@ -1,0 +1,46 @@
+In PostgreSQL, the `GROUP BY` clause is used to group the result-set by one or more columns. This clause is often used with aggregate functions like `SUM`, `COUNT`, `MAX`, `MIN`, and `AVG`.
+Having is used to filter after group by and where is used to filter before grouping. 
+
+Here is the general syntax:
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition
+GROUP BY column1, column2, ...
+HAVING condition;
+```
+The `GROUP BY` clause is used to group the result-set by one or more columns. The `HAVING` clause is used to filter the grouped result-set based on the condition specified.
+
+Here are some examples:
+
+**Example 1: Group by one column**
+```sql
+SELECT department, AVG(salary) AS avg_salary
+FROM employees
+GROUP BY department;
+```
+This query groups the `employees` table by the `department` column and calculates the average salary for each department.
+
+**Example 2: Group by multiple columns**
+```sql
+SELECT department, job_title, COUNT(*) AS count
+FROM employees
+GROUP BY department, job_title;
+```
+This query groups the `employees` table by the `department` and `job_title` columns and counts the number of employees in each group.
+
+**Example 3: Use aggregate functions with GROUP BY**
+```sql
+SELECT department, SUM(salary) AS total_salary
+FROM employees
+GROUP BY department
+HAVING SUM(salary) > 100000;
+```
+This query groups the `employees` table by the `department` column, calculates the total salary for each department, and filters the result-set to include only departments with a total salary greater than 100000.
+
+**Example 4: Use window functions with GROUP BY**
+```sql
+SELECT department, job_title, AVG(salary) OVER (PARTITION BY department) AS avg_salary
+FROM employees;
+```
+This query groups the `employees` table by the `department` column and calculates the average salary for each department using a window function.
