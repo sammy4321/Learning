@@ -33,4 +33,4 @@ Partial Rollback with Savepoints :
     COMMIT; -- Commit the transaction
 
 How to fix aborted transaction(If there was error while running any command inbetween being and commit) : Use ROLLBACK.
-How to fix transactions on crash : Postgre automatically rollbacks if there is any crash.
+How to fix transactions on crash : Postgres automatically rollbacks if there is any crash.
