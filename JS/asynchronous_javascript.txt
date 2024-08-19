@@ -1,0 +1,84 @@
+JavaScript is inherently designed to handle operations that might take time to complete, like fetching data from a server, without blocking other operations. Let’s dive into three key features that help manage these asynchronous operations: Promises, Async/Await. 
+
+Promise : A Promise is an object representing the eventual completion or failure of an asynchronous operation. It allows you to write asynchronous code in a more manageable way. 
+    function getUser(userId) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const users = {
+                    1: { name: 'John', age: 30 },
+                    2: { name: 'Sarah', age: 25 }
+                };
+                const user = users[userId];
+                if (user) {
+                    resolve(user);
+                } else {
+                    reject(new Error("User not found"));
+                }
+            }, 1000);
+        });
+    }
+    getUser(1)
+        .then(user => console.log(user))
+        .catch(error => console.error(error));
+
+Async/Await : Async/Await is a syntactic sugar built on top of Promises. It allows you to write asynchronous code that looks more like synchronous code, making it easier to understand and manage.
+    async function displayUser(userId) {
+        try {
+            const user = await getUser(userId);
+            console.log(user);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    displayUser(1);
+
+Chaining of promises : 
+    function getUser(userId) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log('Fetching user...');
+                const users = {
+                    1: { id: 1, name: 'John' },
+                    2: { id: 2, name: 'Sarah' }
+                };
+                const user = users[userId];
+                if (user) {
+                    resolve(user);
+                } else {
+                    reject(new Error("User not found"));
+                }
+            }, 1000);
+        });
+    }
+
+    function getPostsByUser(userId) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log('Fetching posts...');
+                const posts = {
+                    1: [{ id: 1, post: "Hello world" }, { id: 2, post: "Another post" }],
+                    2: [{ id: 3, post: "Post by Sarah" }]
+                };
+                const userPosts = posts[userId];
+                if (userPosts) {
+                    resolve(userPosts);
+                } else {
+                    reject(new Error("No posts found for this user"));
+                }
+            }, 1000);
+        });
+    }
+
+    // Using promise chaining
+    getUser(1)
+        .then(user => {
+            console.log(user);
+            return getPostsByUser(user.id);
+        })
+        .then(posts => {
+            console.log(posts);
+        })
+        .catch(error => {
+            console.error(error);
+        });
