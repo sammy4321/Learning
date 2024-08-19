@@ -1,0 +1,7 @@
+Flow : 
+1. Send auth data to server. Could be username and password. 
+2. Server checks if auth data is correct.
+3. Server sends back a token.
+4. Client stores token.
+5. Client sends token with every request.
+6. Server checks if token is valid. Only that server can check if the token is valid. Token is created using some JSON data and signature. Signature is created using a key stored on the server. So JSON data + Signature = JWT. 

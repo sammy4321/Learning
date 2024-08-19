@@ -1,0 +1,5 @@
+What are WebSockets?
+    WebSockets provide a way to open a bidirectional communication session between the client and server. Once a WebSocket connection is established, the client and server can send data back and forth in real-time without having to poll the server for a response. This makes WebSockets particularly useful for applications that require real-time data flow, such as chat applications, live notifications, and online gaming.
+
+What is Socket.IO?
+    Socket.IO is a JavaScript library for real-time web applications. It enables real-time, bidirectional and event-based communication between the browser and the server. One of the main advantages of Socket.IO is that it abstracts many of the complexities of WebSockets while providing additional features like automatic reconnection, event handling, and room management. It uses WebSockets under the hood but can fall back to other methods like long-polling if WebSockets are not available.
