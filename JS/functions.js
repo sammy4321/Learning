@@ -67,3 +67,19 @@ function doOperation(a, b, operation) {
 
 let sumResult = doOperation(3, 4, add); // Using the `add` function from earlier
 console.log(sumResult); // Output: 7
+
+// Call : 
+function introduce(name, age) {console.log(`My name is ${name}, I am ${this.role} and ${age} years old.`);}
+const person = {role: "Developer"};
+introduce.call(person, "Alice", 30);
+
+// Apply : 
+function introduce(name, age) {console.log(`My name is ${name}, I am ${this.role} and ${age} years old.`);}
+const person = {role: "Designer"};
+introduce.apply(person, ["Bob", 25]);  // Output: My name is Bob, I am Designer and 25 years old.
+
+// Bind : 
+function introduce(name, age) {console.log(`My name is ${name}, I am ${this.role} and ${age} years old.`);}
+const person = {role: "Engineer"};
+const boundIntroduce = introduce.bind(person);
+boundIntroduce("Charlie", 35);  // Output: My name is Charlie, I am Engineer and 35 years old.
