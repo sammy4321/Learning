@@ -1,0 +1,122 @@
+To achieve the task of reading data from BigQuery, applying some transformation, and publishing the results to Google Pub/Sub using Hadoop, you'll need to use several different tools and frameworks within the Hadoop ecosystem. The process can be broken down into three main steps:
+
+1. Export Data from BigQuery to HDFS
+2. Process the Data using Hadoop MapReduce
+3. Publish the Results to Google Pub/Sub
+
+Step 1: Export Data from BigQuery to HDFS : Google BigQuery doesn’t directly interface with Hadoop, so you need to export the data from BigQuery to Google Cloud Storage (GCS) and then copy it to HDFS.
+
+Export from BigQuery to GCS : bq extract --destination_format=CSV 'your-project-id:your_dataset.your_table' gs://your-bucket-name/your-file.csv
+Copy Data from GCS to HDFS : hadoop fs -copyFromLocal gs://your-bucket-name/your-file.csv /user/hadoop/your-directory/
+
+Step 2: Process the Data using Hadoop MapReduce
+Let’s assume we want to perform a simple transformation, such as filtering rows based on a condition and counting the occurrences of specific values.
+
+Sample Hadoop MapReduce Code : 
+Mapper Class:
+        import org.apache.hadoop.io.IntWritable;
+        import org.apache.hadoop.io.LongWritable;
+        import org.apache.hadoop.io.Text;
+        import org.apache.hadoop.mapreduce.Mapper;
+
+        import java.io.IOException;
+
+        public class FilterMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+            private Text word = new Text();
+            private final static IntWritable one = new IntWritable(1);
+
+            @Override
+            protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+                // Assuming the CSV format and filtering rows based on a condition, e.g., column 3 > 100
+                String[] fields = value.toString().split(",");
+                if (Integer.parseInt(fields[2]) > 100) {
+                    word.set(fields[1]); // Assuming we are counting occurrences of the value in column 2
+                    context.write(word, one);
+                }
+            }
+        }
+Reducer Class:
+        import org.apache.hadoop.io.IntWritable;
+        import org.apache.hadoop.io.Text;
+        import org.apache.hadoop.mapreduce.Reducer;
+
+        import java.io.IOException;
+
+        public class SumReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+
+            @Override
+            protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+                int sum = 0;
+                for (IntWritable val : values) {
+                    sum += val.get();
+                }
+                context.write(key, new IntWritable(sum));
+            }
+        }
+Driver Class : 
+        import org.apache.hadoop.conf.Configuration;
+        import org.apache.hadoop.fs.Path;
+        import org.apache.hadoop.io.IntWritable;
+        import org.apache.hadoop.io.Text;
+        import org.apache.hadoop.mapreduce.Job;
+        import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+        import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+        public class DataProcessor {
+
+            public static void main(String[] args) throws Exception {
+                Configuration conf = new Configuration();
+                Job job = Job.getInstance(conf, "BigQuery Data Processing");
+
+                job.setJarByClass(DataProcessor.class);
+                job.setMapperClass(FilterMapper.class);
+                job.setCombinerClass(SumReducer.class);
+                job.setReducerClass(SumReducer.class);
+
+                job.setOutputKeyClass(Text.class);
+                job.setOutputValueClass(IntWritable.class);
+
+                FileInputFormat.addInputPath(job, new Path(args[0]));
+                FileOutputFormat.setOutputPath(job, new Path(args[1]));
+
+                System.exit(job.waitForCompletion(true) ? 0 : 1);
+            }
+        }
+
+Compile and Run the Job :
+        # Compile the Java program
+        javac -classpath `hadoop classpath` -d . FilterMapper.java SumReducer.java DataProcessor.java
+        # Create a jar file
+        jar cvf data_processor.jar *.class
+        # Run the MapReduce job
+        hadoop jar data_processor.jar DataProcessor /user/hadoop/your-directory/your-file.csv /user/hadoop/your-directory/output
+
+
+Step 3: Publish the Results to Google Pub/Sub : After the MapReduce job is complete, you need to publish the results stored in HDFS to Google Pub/Sub. This can be done using a separate job or a simple Python script with the Google Cloud Pub/Sub client.
+
+Sample Python Code to Publish to Pub/Sub : 
+        from google.cloud import pubsub_v1
+        import subprocess
+
+        # Set up Pub/Sub client
+        project_id = "your-gcp-project-id"
+        topic_id = "your-topic-id"
+        publisher = pubsub_v1.PublisherClient()
+        topic_path = publisher.topic_path(project_id, topic_id)
+
+        # Read output from HDFS
+        hdfs_output_path = "/user/hadoop/your-directory/output/part-r-00000"
+        hdfs_cat_command = f"hdfs dfs -cat {hdfs_output_path}"
+
+        process = subprocess.Popen(hdfs_cat_command.split(), stdout=subprocess.PIPE)
+        output, error = process.communicate()
+
+        # Publish each line to Pub/Sub
+        if output:
+            for line in output.decode("utf-8").splitlines():
+                publisher.publish(topic_path, line.encode("utf-8"))
+
+        if error:
+            print(f"Error reading HDFS output: {error}")
+
+Run the Python Script: python publish_to_pubsub.py
