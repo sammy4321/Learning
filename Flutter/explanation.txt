@@ -1,0 +1,9 @@
+Stateful : 
+    Definition: A stateful widget can change dynamically. It has an associated state object that holds information that can change during the lifecycle of the widget. When the state changes, the widget is rebuilt with the new state.
+    Usage: Stateful widgets are used when the widget needs to rebuild its UI in response to changes in state, such as user interactions, animations, or data updates.
+    Example: A Checkbox or a TextField that updates based on user input are examples of stateful widgets.
+    
+Stateless : 
+    Definition: A stateless widget is immutable, meaning that once it is built, it cannot change. Stateless widgets do not hold any state that could change over time; they simply render the user interface based on the properties passed to them.
+    Usage: Stateless widgets are used when the part of the user interface you are designing does not depend on any dynamic data that can change during the app’s lifecycle.
+    Example: A simple Text widget or an Icon widget are examples of stateless widgets. These widgets are built once and never change unless explicitly rebuilt by the framework.

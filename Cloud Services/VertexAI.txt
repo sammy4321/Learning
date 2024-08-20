@@ -1,0 +1,9 @@
+Readily Available APIs : 
+1. Vision API : OCR, Label Detection, Face Detection, Landmark Detection etc. 
+2. Natual Language API : Sentiment Analysis, Entity recognition, Language Detection. 
+3. Speech to Text Conversion API : 
+
+Custom Auto Training Services : AWS has SageMaker for something similar. 
+1. AutoML Table : Can input CSV file and mention which are features and which are predictors and build and compare models. 
+2. AutoML Vision : Can input images and build models for image classification.
+3. AutoML Natual Language : Can input text and build models for text classification.
