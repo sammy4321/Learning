@@ -1,0 +1,12 @@
+1. Linear Regression : 1. Simple Linear Regression 2. Multiple Linear Regression 3. Polynomial Linear Regression 4. Support Vector Regression (SVR) 5. Decision Tree Regression 6. Random Forest Regression. 
+    Explanation : Predicts continuous variable based on one or more other values. 
+2. Classification Models : 1. Logistic Regression 2. K-Nearest Neighbors (K-NN) 3. Support Vector Machines (SVM) 4. Kernel SVM 5. Naive Bayes 6. Decision Tree  Classification 7. Random Forest Classification.
+    Explanation : Predicts discrete variable based on one or more other values.
+3. Clustering : 1. K-Means Clustering 2. Hierarchical Clustering.
+    Explanation : Groups similar data points together based on their features.
+4. Association Rule Learning : 1. Apriori 2. Eclat.
+    Explanation : Finds patterns in data, such as which items are frequently purchased together. Association rule learning is a data mining technique used to discover interesting relationships, patterns, or associations between variables in large datasets.
+5. Dimensionality Reduction : 1. Principal Component Analysis (PCA) 2. Linear Discriminant Analysis (LDA) 3. Kernel PCA.
+    Explanation : Reduces the number of features in a dataset while retaining as much information as possible.
+6. Boosting : XGBoost, LightGBM, CatBoost.
+    Explanation : Ensembles multiple weak learners to create a strong learner. Boosting is a machine learning technique that combines multiple weak learners (often decision trees) to create a strong learner. It works by iteratively training models on the data, with each subsequent model focusing on the mistakes made by the previous models.
