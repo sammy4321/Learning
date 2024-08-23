@@ -5,5 +5,6 @@ FFNs : A Feedforward Neural Network (FNN) is one of the simplest types of artifi
 CNNs : Convolutional Neural Network (CNN). Window that moves over data. 
 RNNs : Type of neural network that is designed to handle sequential data, such as text, speech, or time-series data. 
 Autoencoder : Autoencoders are a type of artificial neural network used for unsupervised learning, primarily for the purpose of learning efficient codings or representations of input data.
-Transfer Learning : Using a model trained on 1 task and applying it to another task.
+Transfer Learning : Using a model trained on 1 task and applying it to another task. Usually the top layer of the model is frozen and the weights are updated.
 GANs : GANs are designed to generate new, synthetic data that resembles existing data. They are trained on a dataset and learn to generate new data points that are similar to the ones in the dataset.
+Image Segmentation : Image segmentation is the process of partitioning an image into multiple segments.

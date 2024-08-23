@@ -1,7 +1,7 @@
 1. Compute Engine - Virtual Machine. 
 2. Cloud Storage - Can store files. 
 3. Google Kubernetes Engine - Easily run dockers. 
-4. Serveless Functions - Google Cloud Functions.
+4. Serveless Functions - Google Cloud Functions. 
 5. Key Management - KMS. 
 6. Databases - OLTP(Cloud SQL and Cloud Spanner), OLAP(BigQuery), NoSQL(Firestore and BigTable), In Memory(Memorystore).
 7. Asynchronous Communication - Pub/Sub. 

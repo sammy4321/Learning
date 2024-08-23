@@ -5,3 +5,21 @@ Basic Concepts :
 4. Stopwords : Stopwords are words that are filtered out before processing of natural language data. Examples of stopwords include articles, prepositions, pronouns, and common nouns. Eg : a, the, is, are, of, in, on, at, from, and so on.
 5. Part of Speech Tagging : Part of speech tagging is the process of marking up a word in a text with its part of speech. Eg : Noun, Verb, Adjective, Adverb, Pronoun, Preposition, Conjunction, Interjection, Determiner, Article, and so on.
 6. Named Entity Recognition : Named entity recognition (NER) is the task of classifying named entities in text into pre-defined categories such as person names, organizations, locations, medical codes, time expressions, quantities, monetary values, percentages, etc. 
+
+Deep Learning NLP : 
+Transformers : Transformers are a type of deep learning model introduced in the paper “Attention Is All You Need” by Vaswani et al. in 2017.
+Key features of transformers include:
+1. Self-Attention Mechanism: Allows the model to weigh the importance of different words in a sequence relative to each other, regardless of their position.
+2. Parallelization: Unlike RNNs, transformers process all words in a sequence simultaneously, which speeds up training and inference.
+3. Scalability: Transformers can scale up to handle large datasets and complex tasks.
+
+Attention Mechanism : The attention mechanism is a type of neural network that allows the model to focus on a particular part of the input sequence. The attention mechanism helps the model focus on different parts of the input sequence when making predictions. In transformers, attention is used to determine how much focus each word should have relative to other words. 
+
+1. Self-Attention: Involves computing the attention scores within a single sequence. Each word in the sequence considers other words in the same sequence when forming its representation. This helps the model understand context and relationships between words.
+2. Bidirectional Attention: In models like BERT (Bidirectional Encoder Representations from Transformers), the attention mechanism is bidirectional, meaning it considers both the left and right context of a word simultaneously. This allows for a more comprehensive understanding of context.
+3. Multi-Head Attention: This involves running several self-attention operations in parallel (each with different parameters), then combining their outputs. Each "head" can learn different aspects of the relationships between words, providing a richer understanding of the sequence. The combined output is then used for further processing.
+
+In summary, transformers with self-attention and multi-head attention mechanisms enable more effective understanding and generation of language by allowing the model to consider and weigh different parts of a sequence in parallel, leading to significant improvements in various NLP tasks.
+
+LLM : 
+1. RAG : RAG, or Retrieval-Augmented Generation, is a technique used in natural language processing (NLP) to enhance the capabilities of generative models. It combines retrieval-based methods with generative models to improve the quality and relevance of responses in various applications like question answering and conversational AI.
