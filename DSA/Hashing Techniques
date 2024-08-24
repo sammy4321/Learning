@@ -1,0 +1,37 @@
+Hashing is a technique used to efficiently map data of arbitrary size to fixed-size values, often used in data structures like hash tables. 
+1. Division Method : 
+	•	Description: Compute the hash value by taking the remainder of the division of the key by a prime number.
+	•	Example: Given a key k and a prime number p, the hash value is h(k) = k % p. If p is 7 and k is 25, then h(25) = 25 % 7 = 4.
+
+2. Multiplication Method : 
+	•	Description: Multiply the key by a constant, take the fractional part of the result, and then multiply by the table size to obtain the hash value.
+	•	Example: Given a key k, a constant A (0 < A < 1), and a table size m, the hash function is h(k) = floor(m * (k * A % 1)). If k is 25, A is 0.618, and m is 10, then h(25) = floor(10 * ((25 * 0.618) % 1)) = floor(10 * 0.545) = 5.
+
+3. Multiplicative Hashing : 
+	•	Description: Similar to the multiplication method but with a fixed constant, usually derived from prime numbers. It often uses a fixed value for the constant.
+	•	Example: Given a key k and a multiplier constant A, the hash function is h(k) = floor(m * (k * A % 1)), where A is often chosen as 0.6180339887.
+
+4. Folding Method : 
+	•	Description: The key is divided into several parts, each part is hashed, and the results are combined to form the final hash value.
+	•	Example: Given a key k represented by the integer 123456, it might be split into parts (e.g., 123 and 456), and then the hash value is computed as h(k) = (123 + 456) % table_size.
+
+5. Mid-Square Method : 
+	•	Description: Square the key, and then use the middle digits of the result as the hash value.
+	•	Example: Given a key k (say 123), compute k^2 = 123^2 = 15129. Use the middle digits (e.g., 512) as the hash value, possibly modulo the table size.
+
+6. Cryptographic Hash Functions : 
+	•	Description: Hash functions designed to be secure against cryptographic attacks, used for purposes like data integrity and digital signatures. They provide a unique hash value for each input.
+	•	Examples:
+	•	MD5: Produces a 128-bit hash value, often represented as a 32-character hexadecimal number.
+	•	SHA-1: Produces a 160-bit hash value, represented as a 40-character hexadecimal number.
+	•	SHA-256: Produces a 256-bit hash value, represented as a 64-character hexadecimal number.
+
+7. Universal Hashing : 
+	•	Description: A technique where the hash function is chosen randomly from a family of hash functions to minimize collisions. It provides strong guarantees on the performance of hash tables in the average case.
+	•	Example: Randomly select a hash function from a family of functions and use it to hash keys.
+
+8. Perfect Hashing : 
+	•	Description: A specialized technique that aims to create a hash function that minimizes collisions for a specific set of keys, often using two-level hashing.
+	•	Example: Construct a hash table where each bucket uses another hash table to resolve collisions.
+
+These techniques are used in different contexts based on the requirements for efficiency, simplicity, and collision handling.
