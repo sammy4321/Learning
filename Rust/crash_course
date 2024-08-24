@@ -1,0 +1,113 @@
+// Import standard library for I/O operations
+use std::fmt;
+
+// Hello World example
+fn main() {
+    println!("Hello, World!"); // Print a message to the console
+
+    // Variables
+    let a: i32 = 10; // Declare an integer variable with type annotation
+    let b = 20;      // Variable with type inference
+
+    // Data Types
+    let f: f64 = 3.14; // Floating-point number
+    let is_true: bool = true; // Boolean
+    let name: &str = "Rust"; // String slice
+
+    // Function with single return value
+    let sum = add(a, b);
+    println!("Sum: {}", sum); // Print the result
+
+    // Function with multiple return values
+    let (x, y) = swap("Hello", "World");
+    println!("Swapped: {} {}", x, y); // Print the swapped values
+
+    // Control Structures
+    if a > 10 {
+        println!("a is greater than 10");
+    } else {
+        println!("a is 10 or less");
+    }
+
+    let day = "Monday";
+    match day {
+        "Monday" => println!("Start of the week"),
+        "Friday" => println!("End of the week"),
+        _ => println!("Middle of the week"),
+    }
+
+    // For Loop
+    for i in 0..5 {
+        println!("i: {}", i); // Print loop index
+    }
+
+    // Arrays
+    let arr: [i32; 3] = [1, 2, 3]; // Array with 3 elements
+    println!("Array: {:?}", arr); // Print array
+
+    // Vectors (dynamic arrays)
+    let mut vec = vec![1, 2, 3]; // Create a vector with initial values
+    vec.push(4); // Append value to vector
+    println!("Vector: {:?}", vec);
+
+    // HashMaps
+    use std::collections::HashMap;
+    let mut map = HashMap::new(); // Create a HashMap
+    map.insert("age", 25); // Insert key-value pair
+    println!("Map: {:?}", map.get("age").unwrap()); // Access value by key
+
+    // Structs
+    #[derive(Debug)] // Enable Debug trait for printing
+    struct Person {
+        name: String,
+        age: u32,
+    }
+    let p = Person {
+        name: String::from("Alice"),
+        age: 30,
+    }; // Create an instance of Person
+    println!("Person: {:?}", p);
+
+    // Enums
+    #[derive(Debug)]
+    enum Direction {
+        Up,
+        Down,
+        Left,
+        Right,
+    }
+    let dir = Direction::Up;
+    println!("Direction: {:?}", dir); // Print enum value
+
+    // Error Handling with Result
+    match divide(10, 2) {
+        Ok(result) => println!("Division result: {}", result),
+        Err(e) => println!("Error: {}", e),
+    }
+
+    // Concurrency with Threads
+    use std::thread;
+    let handle = thread::spawn(|| {
+        println!("This runs concurrently"); // Print from a thread
+    });
+    handle.join().unwrap(); // Wait for the thread to finish
+}
+
+// Function to add two integers
+fn add(a: i32, b: i32) -> i32 {
+    a + b
+}
+
+// Function to swap two strings and return them
+fn swap(x: &str, y: &str) -> (&str, &str) {
+    (y, x)
+}
+
+// Function to divide two integers and return Result
+fn divide(a: i32, b: i32) -> Result<i32, &'static str> {
+    if b == 0 {
+        Err("cannot divide by zero")
+    } else {
+        Ok(a / b)
+    }
+}

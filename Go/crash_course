@@ -1,0 +1,116 @@
+package main
+
+import (
+    "fmt"
+    "errors"
+)
+
+// Hello World example
+func main() {
+    fmt.Println("Hello, World!") // Print a message to the console
+
+    // Variables
+    var a int = 10 // Declare an integer variable
+    b := 20        // Short variable declaration with type inference
+
+    // Data Types
+    var f float64 = 3.14   // Floating-point number
+    var isTrue bool = true // Boolean
+    var name string = "Go" // String
+
+    // Function with single return value
+    sum := add(a, b)
+    fmt.Println("Sum:", sum) // Print the result
+
+    // Function with multiple return values
+    x, y := swap("Hello", "World")
+    fmt.Println("Swapped:", x, y) // Print the swapped values
+
+    // Control Structures
+    if a > 10 {
+        fmt.Println("a is greater than 10")
+    } else {
+        fmt.Println("a is 10 or less")
+    }
+
+    day := "Monday"
+    switch day {
+    case "Monday":
+        fmt.Println("Start of the week")
+    case "Friday":
+        fmt.Println("End of the week")
+    default:
+        fmt.Println("Middle of the week")
+    }
+
+    // For Loop
+    for i := 0; i < 5; i++ {
+        fmt.Println("i:", i) // Print loop index
+    }
+
+    // Arrays
+    arr := [3]int{1, 2, 3} // Array with 3 elements
+    fmt.Println("Array:", arr)
+
+    // Slices
+    slice := []int{1, 2, 3} // Slice with initial values
+    slice = append(slice, 4) // Append value to slice
+    fmt.Println("Slice:", slice)
+
+    // Maps
+    m := make(map[string]int) // Create a map
+    m["age"] = 25             // Set a key-value pair
+    fmt.Println("Map:", m["age"]) // Access value by key
+
+    // Structs
+    type Person struct {
+        Name string
+        Age  int
+    }
+    p := Person{Name: "Alice", Age: 30} // Create an instance of Person
+    fmt.Println("Person:", p)
+
+    // Concurrency with Goroutines
+    go func() {
+        fmt.Println("This runs concurrently") // Print from a goroutine
+    }()
+
+    // Channels
+    ch := make(chan int) // Create a channel
+    go func() {
+        ch <- 42 // Send value to channel
+    }()
+    val := <-ch // Receive value from channel
+    fmt.Println("Received from channel:", val)
+
+    // Error Handling
+    result, err := divide(10, 2) // Call function that may return an error
+    if err != nil {
+        fmt.Println("Error:", err) // Print error if it occurs
+    } else {
+        fmt.Println("Division result:", result) // Print result
+    }
+
+    // Import and use packages (already demonstrated)
+    // `fmt` is used here for I/O operations
+}
+
+// Function to add two integers
+func add(a int, b int) int {
+    return a + b
+}
+
+// Function to swap two strings and return them
+func swap(x, y string) (string, string) {
+    return y, x
+}
+
+// Function to divide two integers and return error if dividing by zero
+func divide(a, b int) (int, error) {
+    if b == 0 {
+        return 0, errors.New("cannot divide by zero")
+    }
+    return a / b, nil
+}
+
+//Goroutines are a key feature of Go that allow you to execute functions concurrently. They are lightweight threads managed by the Go runtime, making it easy to perform multiple tasks simultaneously without much overhead.

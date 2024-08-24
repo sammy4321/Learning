@@ -1,0 +1,162 @@
+High-Level Design (HLD) and Low-Level Design (LLD) are crucial stages in the system design process, each focusing on different aspects of the system’s architecture.
+
+Principles of High-Level Design (HLD) : 
+	1.	Architectural Overview: HLD provides a broad overview of the system architecture, including the main components and their interactions. It focuses on the system’s overall structure.
+	2.	Component Identification: Identifies major components or modules of the system and their relationships.
+	3.	Technology Choices: Determines the technologies, frameworks, and tools to be used.
+	4.	Data Flow: Outlines the flow of data between components and external systems.
+	5.	Integration Points: Specifies how different system components will interact with each other and with external systems.
+	6.	Non-Functional Requirements: Addresses aspects like scalability, performance, and security at a high level.
+
+Principles of Low-Level Design (LLD) : 
+	1.	Detailed Component Design: Provides a detailed design of individual components, including algorithms and data structures.
+	2.	Interface Design: Specifies the interfaces between components, including method signatures and data formats.
+	3.	Data Structures: Defines the specific data structures to be used within each component.
+	4.	Error Handling: Outlines how errors will be handled within components.
+	5.	Algorithm Design: Details the algorithms that will be implemented to achieve the required functionality.
+	6.	Class and Sequence Diagrams: Uses diagrams to show the interactions between objects or classes at a detailed level.
+
+Comparison : 
+1.	Scope:
+	•	HLD: Broad, system-wide view focusing on the architecture and high-level interactions.
+	•	LLD: Detailed, component-specific view focusing on the implementation details.
+2.	Focus:
+	•	HLD: Focuses on “what” the system will do and how major components interact.
+	•	LLD: Focuses on “how” each component will work internally and interact with other components.
+3.	Detail:
+	•	HLD: Less detailed, providing an overview without getting into the specifics of implementation.
+	•	LLD: Highly detailed, specifying exact implementation details and interactions.
+4.	Purpose:
+	•	HLD: Used for initial design decisions and getting stakeholder buy-in.
+	•	LLD: Used for guiding the actual development and coding of the system.
+5.	Audience:
+	•	HLD: Typically intended for project managers, architects, and stakeholders who need to understand the overall design.
+	•	LLD: Intended for developers and engineers who need to implement the design.
+
+In summary, HLD is about defining the system’s architecture and high-level functionality, while LLD dives into the specifics of component design and implementation. Both are essential for successful system development, with HLD providing the roadmap and LLD detailing the execution plan.
+
+HLD Principles : CAP Theorem, Decomposition Pattern, SAGA Pattern, Strangler Pattern. 
+CAP Theorem : The CAP Theorem (or Brewer’s Theorem) states that in a distributed data store, you can only achieve at most two out of the following three guarantees simultaneously:
+1.	Consistency:
+	•	Definition: Every read receives the most recent write. All nodes in the system have the same view of the data at any given time.
+	•	Implication: If a system is consistent, all clients see the same data at the same time, even if that means some operations might be delayed.
+2.	Availability:
+	•	Definition: Every request (read or write) receives a response, even if some of the data is not up-to-date. The system remains operational and responsive.
+	•	Implication: The system will always be available for requests, but not necessarily with the most recent data.
+3.	Partition Tolerance:
+	•	Definition: The system continues to operate even when network partitions (failures) occur. The system can handle the communication breakdown between nodes.
+	•	Implication: The system can tolerate network failures, but this may affect consistency or availability.
+
+According to the CAP Theorem, a distributed system can only guarantee two of these three properties at the same time:
+	•	CP (Consistency and Partition Tolerance): The system remains consistent and can tolerate network partitions, but may not be available during partitions.
+	•	AP (Availability and Partition Tolerance): The system remains available and can tolerate network partitions, but may not be consistent during partitions.
+	•	CA (Consistency and Availability): The system is consistent and available, but cannot tolerate network partitions.
+
+Decomposition Pattern : Decomposition Pattern involves breaking down a complex system into smaller, manageable components or services. This pattern is often used in microservices architecture and is key for building scalable and maintainable systems.
+	•	Principle: Divide a large system into smaller, autonomous services or modules, each responsible for a specific piece of functionality.
+	•	Benefits:
+	•	Improved modularity and separation of concerns.
+	•	Enhanced scalability, as each component can be scaled independently.
+	•	Easier maintenance and deployment.
+	•	Use Case: Implementing microservices where each service handles a specific business capability (e.g., user management, order processing).
+
+SAGA Pattern : The SAGA Pattern is used to manage distributed transactions in a microservices architecture. It ensures data consistency across multiple services by breaking a transaction into a series of smaller, isolated operations (sagas) with compensating actions to handle failures.
+	•	Principle: Break down a large transaction into a sequence of smaller, manageable steps or sagas. Each step must be completed successfully or have a compensating action if a failure occurs.
+	•	Benefits:
+	•	Provides a way to handle long-running transactions and distributed systems.
+	•	Improves reliability and consistency by ensuring compensating actions can be taken in case of failures.
+	•	Use Case: Implementing business processes that span multiple microservices, such as a multi-step order process where each step is a separate service.
+
+Strangler Pattern : The Strangler Pattern is a technique for migrating from an old system to a new system gradually, without having to perform a complete rewrite.
+	•	Principle: Incrementally replace parts of the old system with the new system while maintaining functionality. Over time, the new system “strangles” or takes over the old system’s responsibilities.
+	•	Benefits:
+	•	Allows for a gradual transition, reducing risk and disruption.
+	•	Enables testing of the new system in parallel with the old system.
+	•	Use Case: Migrating a legacy monolithic application to a microservices-based architecture or updating a legacy system while still supporting its users during the transition.
+Each of these concepts helps address specific challenges in system design and management, from handling distributed systems and transactions to transitioning between legacy and modern architectures.
+
+
+LLD Principles : SOLID, Liskov Substitution Principles, Creational Design Pattern, Behavioural Design Pattern, Structural Design Pattern. 
+Let’s break down each concept:
+
+SOLID Principles : SOLID is an acronym for five design principles aimed at making software designs more understandable, flexible, and maintainable.
+1.	Single Responsibility Principle (SRP) : 
+	•	Definition: A class should have only one reason to change, meaning it should have only one responsibility or job.
+	•	Purpose: Helps in reducing the impact of changes, making the system easier to understand and maintain.
+2.	Open/Closed Principle (OCP) : 
+	•	Definition: Software entities (classes, modules, functions) should be open for extension but closed for modification.
+	•	Purpose: Encourages the design of systems that allow new functionality to be added with minimal changes to existing code.
+3.	Liskov Substitution Principle (LSP) : 
+	•	Definition: Objects of a superclass should be replaceable with objects of a subclass without affecting the correctness of the program.
+	•	Purpose: Ensures that a subclass can stand in for its superclass without altering the desirable properties of the program.
+4.	Interface Segregation Principle (ISP) : 
+	•	Definition: Clients should not be forced to depend on interfaces they do not use. Instead of a large, general-purpose interface, create several smaller, more specific interfaces.
+	•	Purpose: Promotes the design of fine-grained interfaces that are client-specific, reducing the impact of changes on clients.
+5.	Dependency Inversion Principle (DIP) : 
+	•	Definition: High-level modules should not depend on low-level modules; both should depend on abstractions. Abstractions should not depend on details; details should depend on abstractions.
+	•	Purpose: Reduces the coupling between high-level and low-level modules, making the system more flexible and easier to modify.
+
+Liskov Substitution Principle (LSP) : Liskov Substitution Principle is one of the SOLID principles and ensures that objects of a superclass should be replaceable with objects of a subclass without altering the correctness of the program.
+Example: Suppose you have a class Bird with a method fly(), and a subclass Penguin inherits from Bird. If Penguin cannot fly, it should not inherit fly() from Bird. Instead, it should be designed in a way that respects the LSP, perhaps by using an interface that distinguishes flying and non-flying birds.
+
+Creational Design Patterns : Creational design patterns deal with object creation mechanisms, aiming to create objects in a manner suitable to the situation.
+1.	Singleton Pattern : 
+	•	Purpose: Ensures that a class has only one instance and provides a global point of access to it.
+	•	Use Case: Managing a connection pool or configuration settings.
+2.	Factory Method Pattern : 
+	•	Purpose: Defines an interface for creating an object, but lets subclasses alter the type of objects that will be created.
+	•	Use Case: Creating objects in a way that can be extended by subclasses.
+3.	Abstract Factory Pattern : 
+	•	Purpose: Provides an interface for creating families of related or dependent objects without specifying their concrete classes.
+	•	Use Case: Creating sets of objects that work together, such as UI components for different operating systems.
+4.	Builder Pattern : 
+	•	Purpose: Separates the construction of a complex object from its representation so that the same construction process can create different representations.
+	•	Use Case: Building complex objects step-by-step, such as constructing a meal with multiple courses.
+5.	Prototype Pattern : 
+	•	Purpose: Creates new objects by copying an existing object, known as the prototype.
+	•	Use Case: When object creation is costly or complex, and cloning an existing object is more efficient.
+
+Behavioral Design Patterns : Behavioral design patterns focus on communication between objects, making it easier to define how objects interact and collaborate.
+1.	Observer Pattern : 
+	•	Purpose: Defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
+	•	Use Case: Implementing event handling systems.
+2.	Strategy Pattern : 
+	•	Purpose: Defines a family of algorithms, encapsulates each one, and makes them interchangeable.
+	•	Use Case: Providing different ways to perform an operation, like sorting or discount strategies.
+3.	Command Pattern : 
+	•	Purpose: Encapsulates a request as an object, thereby allowing for parameterization of clients with queues, requests, and operations.
+	•	Use Case: Implementing undo/redo functionality in applications.
+4.	Chain of Responsibility Pattern
+	•	Purpose: Passes a request along a chain of handlers, where each handler can either process the request or pass it to the next handler in the chain.
+	•	Use Case: Handling requests with multiple levels of processing, like event handling or middleware in web frameworks.
+5.	State Pattern : 
+	•	Purpose: Allows an object to change its behavior when its internal state changes, appearing as if it changed its class.
+	•	Use Case: Managing state-specific behavior, such as a document editor with different modes (draft, review, final).
+6.	Template Method Pattern : 
+	•	Purpose: Defines the skeleton of an algorithm in a base class but lets subclasses override specific steps of the algorithm without changing its structure.
+	•	Use Case: Implementing algorithms with fixed steps but varying implementations, like data processing pipelines.
+7.	Mediator Pattern : 
+	•	Purpose: Defines an object that encapsulates how a set of objects interact, promoting loose coupling between objects.
+	•	Use Case: Managing interactions between multiple components or services, like a chat room or central controller.
+
+Structural Design Patterns : Structural design patterns focus on how objects and classes are composed to form larger structures.
+1.	Adapter Pattern : 
+	•	Purpose: Allows objects with incompatible interfaces to work together by converting the interface of a class into another interface expected by the clients.
+	•	Use Case: Integrating legacy code with new systems or APIs.
+2.	Decorator Pattern : 
+	•	Purpose: Adds new functionality to an object dynamically without altering its structure.
+	•	Use Case: Extending the behavior of objects, such as adding scroll bars to a window.
+3.	Facade Pattern : 
+	•	Purpose: Provides a unified interface to a set of interfaces in a subsystem, making it easier to use.
+	•	Use Case: Simplifying interaction with a complex system or library.
+4.	Composite Pattern : 
+	•	Purpose: Allows you to compose objects into tree structures to represent part-whole hierarchies.
+	•	Use Case: Managing tree-like structures such as graphical objects or file systems.
+5.	Bridge Pattern : 
+	•	Purpose: Decouples an abstraction from its implementation so that the two can vary independently.
+	•	Use Case: Designing systems where you need to separate abstractions from their implementations, like graphic rendering engines.
+6.	Proxy Pattern : 
+	•	Purpose: Provides a surrogate or placeholder for another object to control access to it.
+	•	Use Case: Implementing access control, lazy loading, or logging.
+
+Each of these design patterns serves a specific purpose and can be used to solve common design problems in software engineering, helping to create more modular, flexible, and maintainable code.
