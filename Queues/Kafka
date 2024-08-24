@@ -1,0 +1,29 @@
+Apache Kafka is a distributed event streaming platform used for building real-time data pipelines and streaming applications. Here are the basic concepts:
+1. Broker: A Kafka server that stores and serves messages. Kafka clusters consist of multiple brokers to distribute load and ensure fault tolerance.
+2. Producer: An application or service that publishes messages to Kafka topics.
+3. Consumer: An application or service that reads messages from Kafka topics.
+4. Topic: A category or feed name to which records are sent by producers. Topics are the primary abstraction in Kafka for storing and organizing messages.
+5. Partition: A topic is divided into partitions, which allow Kafka to scale horizontally and distribute load. Each partition is an ordered, immutable sequence of records.
+6. Offset: A unique identifier for each record within a partition. Offsets are used by consumers to keep track of their progress and resume from where they left off.
+7. Consumer Group: A group of consumers that work together to read messages from one or more topics. Each partition's messages are processed by only one consumer within the group, providing load balancing and fault tolerance.
+8. Producer Record: The data sent by producers to Kafka topics. Each record includes a key, value, and optional metadata.
+9. Broker Replication: Kafka ensures fault tolerance by replicating partitions across multiple brokers. Each partition has a leader and several followers. The leader handles all reads and writes while followers replicate data.
+10. ZooKeeper: An ensemble of ZooKeeper nodes manages Kafka brokers, maintaining metadata about brokers, topics, and partition leaders. Kafka uses ZooKeeper for leader election and configuration management.
+11. Retention Policy: Defines how long Kafka retains records in a topic. Kafka can retain records based on time (e.g., 7 days) or size (e.g., 100 GB).
+12. Log: Each partition is a log file where records are stored in an immutable sequence. Logs are managed by Kafka brokers and serve as the persistent storage.
+13. Replication Factor: Specifies the number of copies of each partition across different brokers. Higher replication factors improve fault tolerance and data durability.
+14. Stream Processing: Kafka provides stream processing capabilities via Kafka Streams, allowing real-time processing and analysis of data as it flows through topics.
+15. Kafka Connect: A framework for integrating Kafka with various data sources and sinks (databases, files, etc.) through pre-built and custom connectors.
+16. These concepts provide a basic understanding of Kafka's architecture and how it manages and processes streams of records in a distributed system.
+
+There are producers, consumers and topics(The queue where data is sent and stored by Producers). Unlike Rabbit MQ, there are no exchanges which determine the routing of messages.
+
+ZooKeeper is an essential component in Apache Kafka, used for coordinating and managing the distributed aspects of the Kafka cluster. Here’s how ZooKeeper is utilized in Kafka :
+1. Cluster Management: ZooKeeper keeps track of the status of Kafka brokers within the cluster. It maintains metadata about brokers, including their addresses, statuses, and configurations. This helps in discovering and interacting with the brokers.
+2 Leader Election: In Kafka, each partition of a topic has a leader broker and several follower brokers. ZooKeeper is responsible for leader election among brokers. It ensures that there is a single leader for each partition at any given time and manages the transition of leadership in case of broker failures.
+3. Configuration Management: Kafka brokers and topics have various configurations, such as replication factors, retention policies, and other settings. ZooKeeper stores and manages these configurations, ensuring that all brokers are synchronized with the current configuration.
+4. Topic and Partition Metadata: ZooKeeper holds metadata about Kafka topics, partitions, and their assignments to brokers. This includes information about which partitions are on which brokers and which brokers are leaders for those partitions.
+5. Consumer Group Coordination: ZooKeeper is used for managing consumer group coordination. It tracks the state of consumer groups, including their membership and the offset positions of each consumer. This allows Kafka to provide fault tolerance and ensure that each partition’s messages are consumed exactly once by consumers within a group.
+6. Broker Coordination: When a Kafka broker starts or shuts down, it registers its state with ZooKeeper. ZooKeeper then informs other brokers about the state changes, helping to keep the cluster’s view consistent.
+7. Fault Tolerance and Recovery: In the event of a broker failure, ZooKeeper helps Kafka quickly identify and recover from such failures by facilitating leader re-election and metadata updates. It helps Kafka maintain high availability and reliability by managing the transitions of responsibilities within the cluster.
+Overall, ZooKeeper provides essential coordination and management services that enable Kafka to function effectively as a distributed messaging and streaming platform. It ensures that Kafka brokers and other components work together seamlessly, maintaining consistency and reliability across the cluster.

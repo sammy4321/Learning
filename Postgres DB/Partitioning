@@ -1,0 +1,12 @@
+Partitioning in PostgreSQL is a database design technique used to divide a large table into smaller, more manageable pieces called partitions. This can improve query performance, simplify data management, and help with large datasets. Here’s a breakdown of how it works and its benefits:
+
+How Partitioning Works :
+1.	Partition Key: You choose a column or columns that determine how the data will be distributed across partitions. Common choices are date/time columns or IDs.
+2.	Partitioning Methods:
+	•	Range Partitioning: Divides data based on ranges of values. For example, you might partition sales data by year.
+	•	List Partitioning: Divides data based on a list of discrete values. For example, you might partition employee data by department.
+	•	Hash Partitioning: Distributes data evenly based on a hash function applied to the partition key. This is useful when you want to balance the load across partitions.
+	•	Composite Partitioning(Multi-level): Combines multiple partitioning methods. For example, you might use range partitioning for years and then list partitioning within each year.
+3.	Creating Partitions : You create a main table (the parent table) and then create separate tables for each partition (child tables). These child tables inherit from the parent table and store a subset of the data.
+4.	Query Routing : When a query is run, PostgreSQL will automatically route it to the appropriate partition(s) based on the partition key. This can significantly speed up queries by reducing the amount of data scanned.
+5.	Maintenance : Partitioning can simplify maintenance tasks such as data archiving, backup, and purging. For example, you can easily drop old partitions or add new ones without affecting the rest of the table.

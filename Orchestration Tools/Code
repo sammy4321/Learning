@@ -1,0 +1,83 @@
+Here’s a simple example of an Apache Airflow DAG that performs a few basic tasks. This example demonstrates how to define a DAG with two tasks: one that prints a message and another that sleeps for a few seconds.
+
+1. **First, make sure you have Airflow installed:**
+   ```bash
+   pip install apache-airflow
+   ```
+
+2. **Create a Python file for your DAG, e.g., `simple_dag.py`:**
+
+   ```python
+   from airflow import DAG
+   from airflow.operators.python_operator import PythonOperator
+   from datetime import datetime, timedelta
+
+   # Define default_args dictionary
+   default_args = {
+       'owner': 'airflow',
+       'depends_on_past': False,
+       'email_on_failure': False,
+       'email_on_retry': False,
+       'retries': 1,
+       'retry_delay': timedelta(minutes=5),
+   }
+
+   # Define the DAG
+   dag = DAG(
+       'simple_dag',
+       default_args=default_args,
+       description='A simple Airflow DAG',
+       schedule_interval=timedelta(days=1),
+       start_date=datetime(2024, 1, 1),
+       catchup=False,
+   )
+
+   # Define the Python functions for tasks
+   def print_message():
+       print("Hello from Airflow!")
+
+   def sleep_task():
+       import time
+       time.sleep(10)
+       print("Slept for 10 seconds!")
+
+   # Define the tasks
+   task1 = PythonOperator(
+       task_id='print_message',
+       python_callable=print_message,
+       dag=dag,
+   )
+
+   task2 = PythonOperator(
+       task_id='sleep_task',
+       python_callable=sleep_task,
+       dag=dag,
+   )
+
+   # Set task dependencies
+   task1 >> task2
+   ```
+
+### Explanation:
+
+- **default_args**: This dictionary contains default arguments for the DAG. These are used by all tasks unless overridden.
+
+- **DAG**: The DAG object is created with a unique ID (`simple_dag`), default arguments, a description, and a schedule interval.
+
+- **PythonOperator**: This operator is used to execute Python functions as tasks. `task1` prints a message, and `task2` sleeps for 10 seconds.
+
+- **task1 >> task2**: This sets the order of execution, meaning `task1` will run before `task2`.
+
+### How to Run:
+
+1. **Place the Python file (`simple_dag.py`) in the `dags` folder of your Airflow installation.** The `dags` folder is typically located in your Airflow home directory (`AIRFLOW_HOME`).
+
+2. **Start the Airflow web server and scheduler:**
+   ```bash
+   airflow webserver --port 8080
+   airflow scheduler
+   ```
+
+3. **Access the Airflow UI at `http://localhost:8080`.** You should see the `simple_dag` listed, and you can manually trigger it or wait for the scheduled time to see it run.
+
+This is a basic example to get you started with Airflow. As you become more familiar with it, you can explore more advanced features and configurations.

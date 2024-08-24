@@ -1,0 +1,22 @@
+RabbitMQ is a popular message broker that facilitates communication between different components of a distributed system. Here are some basic concepts:
+
+1. Broker: The RabbitMQ server acts as the broker, managing the message queue, routing messages, and ensuring reliable delivery.
+2. Producer: The application or service that sends messages to the RabbitMQ broker.
+3. Consumer: The application or service that receives messages from the RabbitMQ broker.
+4. Queue: A buffer that stores messages until they are processed by a consumer. Queues are FIFO (First In, First Out) by default.
+5. Exchange: Routes messages from producers to one or more queues based on certain criteria. There are several types of exchanges:
+   Direct Exchange: Routes messages with a specific routing key to the queues bound to it.
+   Fanout Exchange: Routes messages to all queues bound to it, ignoring the routing key.
+   Topic Exchange: Routes messages to queues based on matching patterns in the routing key.
+   Headers Exchange: Routes messages based on header attributes rather than routing keys.
+6. Binding: The connection between an exchange and a queue that defines how messages should be routed.
+7. Routing Key: A string used by exchanges to determine how to route messages to queues.
+8. Message: The data that producers send to the broker and that consumers receive. It typically consists of a body and optional metadata (headers).
+9. Virtual Host (vhost): A logical partition within RabbitMQ that isolates different applications or environments. Each vhost has its own set of exchanges, queues, and bindings.
+10. Channel: A virtual connection inside a TCP connection to RabbitMQ. Channels are used to perform operations such as declaring exchanges, queues, and publishing or consuming messages.
+11. Acknowledgment: A confirmation sent by the consumer to the broker indicating that a message has been successfully processed. This helps ensure message delivery and processing reliability.
+12. Message Durability: Ensures that messages are not lost if the RabbitMQ broker crashes. This involves marking queues and messages as durable.
+13. High Availability (HA): Replicates queues across multiple nodes in a cluster to ensure availability and fault tolerance.
+
+These concepts provide a foundational understanding of how RabbitMQ manages and routes messages within a distributed system.
+There are producers, consumers and queues. Exchanges are used to route to which queues a message should be sent. A routing key is used to determine the queue to published. 

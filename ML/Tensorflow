@@ -1,0 +1,46 @@
+TensorFlow is a comprehensive machine learning framework developed by Google. Its core components are:
+
+1. Tensors : 
+	•	Description: The fundamental data structure in TensorFlow, representing multi-dimensional arrays. Tensors are used to store data and perform computations.
+	•	Usage: Tensors can be scalars, vectors, matrices, or higher-dimensional arrays.
+2. Operations (Ops) : 
+	•	Description: Nodes in the computational graph that perform mathematical operations on tensors.
+	•	Usage: Examples include addition, multiplication, and matrix multiplication. Operations define how data flows through the graph.
+3. Graphs : 
+	•	Description: A computational graph represents the sequence of operations (ops) to be performed. It defines how tensors and operations are connected.
+	•	Usage: The graph is built before running the computation and is used to optimize performance.
+4. Sessions : 
+	•	Description: An environment for running operations in a computational graph. Sessions execute the graph and manage resources.
+	•	Usage: Sessions are used to evaluate tensors and run operations.
+5. Variables : 
+	•	Description: Special tensors that are mutable and used to store model parameters or state. They can be updated during training.
+	•	Usage: Variables are essential for learning algorithms, such as weights in neural networks.
+6. Placeholders : 
+	•	Description: Tensors that act as inputs to the computation graph, which are fed with data during runtime.
+	•	Usage: Placeholders are used to provide inputs to the graph, especially for feeding training data.
+7. Keras API : 
+	•	Description: A high-level API within TensorFlow for building and training neural networks.
+	•	Usage: Provides a user-friendly interface for defining models, layers, and training routines, simplifying the process of creating deep learning models.
+8. Optimizers : 
+	•	Description: Algorithms that adjust variables to minimize loss functions during training.
+	•	Usage: Examples include Gradient Descent, Adam, and RMSProp.
+9. Loss Functions : 
+	•	Description: Functions that measure how well the model’s predictions match the target values.
+	•	Usage: Examples include Mean Squared Error, Cross-Entropy, and Hinge Loss.
+10. Datasets and Data Pipelines : 
+	•	Description: Tools for efficiently loading and preprocessing data.
+	•	Usage: TensorFlow provides APIs for creating, loading, and transforming datasets, such as the tf.data module.
+11. Estimators : 
+	•	Description: A high-level API for training and evaluating machine learning models.
+	•	Usage: Estimators simplify the process of training models, evaluating them, and exporting them for serving.
+12. TensorFlow Hub : 
+	•	Description: A library for reusable machine learning components.
+	•	Usage: Provides pre-trained models and other components that can be reused and fine-tuned for specific tasks.
+13. TensorFlow Lite : 
+	•	Description: A lightweight version of TensorFlow designed for mobile and embedded devices.
+	•	Usage: Enables deploying machine learning models on resource-constrained devices with lower latency and smaller footprint.
+14. TensorFlow Extended (TFX) : 
+	•	Description: A production-ready framework for deploying and managing machine learning models.
+	•	Usage: Provides tools for model validation, serving, and monitoring in production environments.
+
+These components work together to provide a powerful and flexible platform for building, training, and deploying machine learning models.
