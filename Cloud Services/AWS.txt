@@ -1,7 +1,7 @@
 1. EC2 - Virtual Machine. 
 2. S3 - Can store files. 
 3. EKS(Elastic Kubernetes Services) - Easily run dockers. 
-4. Serveless Functions - Lambda Functions.
+4. Serveless Functions - Lambda Functions. 
 5. Key Management - KMS. 
 6. Databases - OLTP(RDS - relational database service and Cloud Aurora), OLAP(Redshift), NoSQL(DynamoDB and Timestream), In Memory(ElastiCache).
 7. Asynchronous Communication - Simple Notification Service. 
@@ -9,4 +9,4 @@
 9. Elastic Beanstalk : AWS Elastic Beanstalk is a Platform as a Service (PaaS) offered by Amazon Web Services (AWS) that simplifies the process of deploying, managing, and scaling web applications and services. 
 10. AWS Cognito : AWS Cognito is a managed service provided by Amazon Web Services (AWS) that simplifies the process of adding user authentication, authorization, and user management to web and mobile applications. 
 
-What does serverless mean - You don't have to worry about the underlying server configurations - like RAM, CPU, etc. You just have to write the code and AWS will take care of the rest.
+What does serverless mean - You don't have to worry about the underlying server configurations - like RAM, CPU, etc. You just have to write the code and AWS will take care of the rest. 
