@@ -37,8 +37,12 @@ c = 1 + 2j
 print(type(c))   # Output: <class 'complex'>
 
 # String
+name = "Alice"
+age = 25
 s = "Hello, World!"
 print(type(s))   # Output: <class 'str'>
+print("Hello, {name}. You are {age} years old.".format(name=name, age=age))
+print(f"Hello, {name}. You are {age} years old.")
 
 # Boolean
 flag = False
