@@ -54,6 +54,10 @@ print(type(flag))  # Output: <class 'bool'>
 # List (ordered, mutable collection)
 my_list = [1, 2, 3, "four", 5.0]
 print(type(my_list))  # Output: <class 'list'>
+result = [x**2 for x in range(1, 11)] # List Comprehension
+result = ['Even' for x in range(1, 11) if x % 2 == 0] # List Comprehension with condition
+result = ['Even' if x % 2 == 0 else 'Odd' for x in range(1, 11)] # List Comprehension with condition and else
+result = [x*y for x in range(1, 11) for y in range(1, 11)] # List Comprehension with nested loops
 
 # Tuple (ordered, immutable collection)
 my_tuple = (1, 2, 3)

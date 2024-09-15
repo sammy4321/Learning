@@ -1,0 +1,5 @@
+In Python, __name__ is a special built-in variable that represents the name of the current module. It is part of Python's set of dunder variables (double underscore variables), which are used internally by Python but can also be accessed in your code.
+
+Key Points :
+    1. When a Python script is run directly, __name__ is set to '__main__'.
+    2. When a Python script is imported as a module in another script, __name__ is set to the module's name.
