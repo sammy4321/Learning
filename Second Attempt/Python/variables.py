@@ -40,9 +40,12 @@ print(type(c))   # Output: <class 'complex'>
 name = "Alice"
 age = 25
 s = "Hello, World!"
+text = "Hello, World!"
 print(type(s))   # Output: <class 'str'>
 print("Hello, {name}. You are {age} years old.".format(name=name, age=age))
 print(f"Hello, {name}. You are {age} years old.")
+print(text[0])  
+print(text[0:5])
 
 # Boolean
 flag = False
