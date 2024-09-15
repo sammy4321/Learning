@@ -17,7 +17,7 @@ Principles of Low-Level Design (LLD) :
 	6.	Class and Sequence Diagrams: Uses diagrams to show the interactions between objects or classes at a detailed level.
 
 Comparison : 
-1.	Scope:
+1.	Scope : 
 	•	HLD: Broad, system-wide view focusing on the architecture and high-level interactions.
 	•	LLD: Detailed, component-specific view focusing on the implementation details.
 2.	Focus:
