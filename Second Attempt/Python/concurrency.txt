@@ -5,7 +5,7 @@ Multi-threading involves running multiple threads (lighter weight processes) wit
 
 2. Multi-processing : Multi-processing involves running multiple processes simultaneously. Unlike threads, each process has its own memory space and Python runtime. This approach is beneficial for CPU-bound tasks since it bypasses the GIL, allowing multiple processes to utilize multiple CPU cores.
 
-3. Asynchronous Programming : Asynchronous programming allows handling of I/O-bound and some CPU-bound tasks efficiently by using a single-thread event loop. It uses async and await keywords in Python, making the code non-blocking and responsive without using multiple threads or processes directly.
+3. Asynchronous Programming : Asynchronous programming allows handling of I/O-bound and some CPU-bound tasks efficiently by using a single-thread event loop. It uses async and await keywords in Python, making the code non-blocking and responsive without using multiple threads or processes directly. Asyncio is meant sepcifically for API I/O, while the get request is waiting for a response, other calls are being made. 
 
 Summary:
     Multi-threading: Best for I/O-bound tasks where tasks can run concurrently without heavy CPU usage.
