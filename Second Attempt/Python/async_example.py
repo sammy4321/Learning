@@ -66,3 +66,25 @@ print(result)  # Print the combined result
 #         ("https://example.org", 200, "HTML content from example.org"),
 #         ("https://example.net", 200, "HTML content from example.net")
 #     ]
+
+
+# How await Works : When execution reaches an await expression, the coroutine where it is used pauses its execution at that point. The event loop takes over and manages other tasks or coroutines that are ready to run. Once the awaited operation is complete, the result of the operation is returned, and the paused coroutine resumes execution immediately after the await expression.
+
+import asyncio
+
+async def perform_task():
+    print("Task starts.")
+    await asyncio.sleep(2)  # Pauses here for 2 seconds, allowing the event loop to run other tasks
+    print("Task completed after 2 seconds.")
+
+async def main():
+    await perform_task()
+
+# Run the main coroutine
+asyncio.run(main())
+
+# Explanation of the Example:
+# perform_task Coroutine:
+#     Starts by printing "Task starts."
+#     Then, it hits the await asyncio.sleep(2). At this point, it pauses, and control is yielded back to the event loop. The asyncio.sleep(2) is a coroutine that simulates a delay (like waiting for a response from a server) and does not block other operations.
+#     After 2 seconds, the asyncio.sleep(2) coroutine completes, and perform_task resumes, printing "Task completed after 2 seconds."
