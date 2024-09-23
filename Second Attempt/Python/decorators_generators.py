@@ -33,6 +33,25 @@ say_hello("Alice")  # Output:
                      # Hello, Alice!
                      # Hello, Alice!
 
+##### Decorator with return value : 
+def sample_decorator(func):
+    def wrapper():
+        print('Function started')
+        result = func()  # Capture the return value of the function
+        print('Function ended')
+        return result  # Return the result
+    return wrapper
+
+@sample_decorator
+def sample_function():
+    print('Inside Function')
+    return 'Function Result'  # Return a value from the function
+
+# Call the decorated function and print its return value
+result = sample_function()
+print(result)
+
+
 ##### Generator : 
 def infinite_sequence():
     num = 0

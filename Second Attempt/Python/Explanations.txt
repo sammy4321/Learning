@@ -3,3 +3,5 @@ In Python, __name__ is a special built-in variable that represents the name of t
 Key Points :
     1. When a Python script is run directly, __name__ is set to '__main__'.
     2. When a Python script is imported as a module in another script, __name__ is set to the module's name.
+
+Running python code : Execution process: When a Python program runs, the interpreter reads the Python source code, parses it, and converts it into an intermediate form (bytecode). This bytecode is then interpreted by a virtual machine (Python Virtual Machine, or PVM) rather than being directly executed by the CPU.
