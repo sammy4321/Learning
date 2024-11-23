@@ -1,8 +1,0 @@
-OpenCV : 
-
-- **Blending**: Combining two or more images to produce a single image, typically using weighted averages. 
-- **Image Thresholding**: Converting a grayscale image to a binary image by setting pixels above a certain value to one color and below to another. 
-- **Blurring**: Reducing noise and detail in an image by averaging pixel values in a neighborhood, commonly using Gaussian or median filters. 
-- **Smoothing**: Reducing noise and detail in an image, often through techniques like Gaussian or bilateral filtering. 
-- **Gradients**: Measuring the change in intensity or color in an image, often used for edge detection with operators like Sobel or Laplacian. 
-- **Histograms**: Graphical representation of pixel intensity distributions in an image, used to analyze contrast and brightness. 

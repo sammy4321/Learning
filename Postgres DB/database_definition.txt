@@ -1,5 +1,0 @@
-Schemas : A schema is a container for tables, views, indexes, and other objects. A schema helps to organize and structure the database by providing a way to group related objects together and to isolate them from other schemas.
-Schemas can inherit from other schemas, which means that they can inherit the objects (tables, views, indexes, etc.) from their parent schema. This is known as a schema hierarchy.
-CREATE SCHEMA my_schema;
-CREATE SCHEMA public_schema INHERITS (my_schema);
-Objects within a Schema : Tables, Views, Indexes, Sequences, Functions, Procedures, Triggers, Composite types. 

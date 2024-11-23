@@ -1,6 +1,0 @@
-How is it Implemented in old webapp : 
-1. Send login request. If the user exists, session is created. 
-2. Return 200 OK with session ID in the response.
-3. Send request with session ID in the header.
-4. If the session ID is valid, return 200 OK.
-

@@ -1,2 +1,0 @@
-Mutli-Threading : It is more of a magic trick where multiple tasks are run parallely inside a core by utilizing idle times in between tasks. So it is concurrently but not parallely. 
-Multi-Core : Separate cores with diffrent tasks running parallely.
