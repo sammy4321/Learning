@@ -49,3 +49,9 @@ def get_name_and_age(name, age):
 minor, age = get_name_and_age("John", 17)
 print(minor)  # Output: "Minor"
 print(age)  # Output: 17
+
+def square(number):
+    return number ** 2
+
+numbers = [1, 2, 3, 4, 5]
+squared_numbers = map(square, numbers)
