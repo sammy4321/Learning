@@ -163,3 +163,41 @@ function main() {
 }
 
 main();
+
+// Async Await with chaining : 
+function fetchUserId() {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve('user123'), 1000); // Mock API call delay
+    });
+  }
+  
+  function fetchUserDetails(userId) {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve({ userId: userId, username: 'JaneDoe' }), 1000); // Another mock API call
+    });
+  }
+  
+  function fetchUserPermissions(username) {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(['read', 'write']), 1000); // Final mock API call
+    });
+  }
+  
+  // Function to chain these calls using async/await
+  async function getUserInfo() {
+    try {
+      const userId = await fetchUserId();
+      const userDetails = await fetchUserDetails(userId);
+      const permissions = await fetchUserPermissions(userDetails.username);
+      
+      return {
+        userId: userDetails.userId,
+        username: userDetails.username,
+        permissions: permissions
+      };
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  }
+  
+  
