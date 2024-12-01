@@ -1,5 +1,7 @@
 // Callback : A callback is a function passed as an argument to another function, to be executed later. Callbacks are commonly used in asynchronous programming.
 
+// Explanation : Each async function is run concurrently but inside an async function, it is run one after the other. 
+
 function fetchData(callback) {
     setTimeout(() => {
         const data = "Data fetched from server";

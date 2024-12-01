@@ -1,0 +1,36 @@
+1. Hash Index
+    Definition: A hash index is a type of index that uses a hash table internally to map a specific key to a corresponding value.
+    Key Features:
+    Optimized for equality comparisons (e.g., = or IN queries).
+    Performs well when searching for a specific value.
+    Does not support range queries (e.g., <, >, BETWEEN).
+    Use Case:
+    Use hash indexes when the query pattern predominantly involves equality conditions, like finding rows where a column equals a specific value.
+    Limitations:
+    Does not support ordering or range queries.
+    Consumes more memory compared to other indexes because of hash table overhead.
+2. BRIN Index (Block Range INdex)
+    Definition: A BRIN index is designed to store summary information about block ranges in the table, rather than indexing individual rows.
+    Key Features:
+    Lightweight and space-efficient.
+    Summarizes the range of values for each block of data (e.g., the minimum and maximum values).
+    Ideal for large tables with data that is naturally ordered or clustered (e.g., time-series data).
+    Use Case:
+    Excellent for range queries (e.g., BETWEEN, <, >) on large datasets.
+    Useful in scenarios where a table has sequential data like timestamps.
+    Limitations:
+    Less precise than other index types, as it may require scanning blocks to identify matching rows.
+    Works best when the data is ordered or clustered on the indexed column.
+3. GIN Index (Generalized Inverted Index)
+    Definition: A GIN index is a specialized index designed for indexing composite values or full-text search, such as arrays, JSONB, or documents.
+    Key Features:
+    Optimized for containment queries (e.g., checking if a value exists in an array or JSON document).
+    Supports full-text search, enabling fast lookups for words or phrases in a text field.
+    Supports PostgreSQL's @@ operator for text search.
+    Use Case:
+    Indexing JSONB data, arrays, or documents.
+    Full-text search queries like finding documents containing specific keywords.
+    Searching for rows where a column contains certain elements in an array.
+    Limitations:
+    Index creation can be slower and consume more disk space compared to other index types.
+    Updates to indexed columns can be costly, as the index must also be updated.

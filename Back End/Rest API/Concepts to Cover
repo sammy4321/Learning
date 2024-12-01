@@ -1,0 +1,11 @@
+1. Header, Request, Body and Status Code
+2. Routes
+3. Controller
+4. Middlewares
+5. Models
+6. Global Error Handling - Unhandled Routes, Unhandled Promise Rejections, Async Errors
+7. Filters to APIs
+8. Authentication - Login User and Assign Token, JWT token, Reset Token
+9. Admin routes - add users
+10. Pagination
+11. Rate Limit, Data Sanitization, Parameter pollution and Enabling CORS. 

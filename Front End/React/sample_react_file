@@ -1,0 +1,141 @@
+import React, { useState, useReducer, useRef, useContext, createContext } from "react";
+import { Provider, useDispatch, useSelector, configureStore, createSlice } from "@reduxjs/toolkit";
+import "./tailwind.css"; // Ensure you include Tailwind CSS in your project.
+
+// === Context Setup ===
+// Context allows data to be shared across components without drilling props.
+const AppContext = createContext();
+
+// === Redux Setup ===
+// Redux manages global state. Here we define a simple slice for counter functionality.
+const counterSlice = createSlice({
+  name: "counter",
+  initialState: { value: 0 },
+  reducers: {
+    increment: (state) => { state.value += 1; },
+    decrement: (state) => { state.value -= 1; },
+  },
+});
+
+const { increment, decrement } = counterSlice.actions;
+const store = configureStore({ reducer: { counter: counterSlice.reducer } });
+
+// === Reducer Setup ===
+// useReducer is for local state management. Here we manage form submission states.
+const formReducer = (state, action) => {
+  switch (action.type) {
+    case "SUBMIT":
+      return { ...state, submitted: true, name: action.payload };
+    case "RESET":
+      return { submitted: false, name: "" };
+    default:
+      return state;
+  }
+};
+
+// === Main App Component ===
+const App = () => {
+  // useState for local component state
+  const [showDetails, setShowDetails] = useState(false);
+
+  // useReducer for managing form state
+  const [formState, dispatchForm] = useReducer(formReducer, {
+    submitted: false,
+    name: "",
+  });
+
+  // useRef to track the input field
+  const inputRef = useRef();
+
+  // Accessing context
+  const { appName } = useContext(AppContext);
+
+  // Accessing Redux state and dispatch
+  const counter = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+
+  return (
+    <div className="p-4 bg-gray-100 text-gray-800">
+      {/* App Header */}
+      <h1 className="text-2xl font-bold text-blue-600">{appName}</h1>
+
+      {/* Redux Counter */}
+      <div className="my-4">
+        <h2 className="text-xl">Counter: {counter}</h2>
+        <button
+          className="px-4 py-2 bg-green-500 text-white rounded mr-2"
+          onClick={() => dispatch(increment())}
+        >
+          Increment
+        </button>
+        <button
+          className="px-4 py-2 bg-red-500 text-white rounded"
+          onClick={() => dispatch(decrement())}
+        >
+          Decrement
+        </button>
+      </div>
+
+      {/* Conditional Rendering */}
+      <div>
+        {showDetails ? (
+          <p className="text-gray-600">Details are now visible!</p>
+        ) : (
+          <p className="text-gray-600">Click the button to see details.</p>
+        )}
+        <button
+          className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+          onClick={() => setShowDetails(!showDetails)}
+        >
+          Toggle Details
+        </button>
+      </div>
+
+      {/* Form Handling with useReducer */}
+      <div className="mt-4">
+        {formState.submitted ? (
+          <p className="text-green-600">Hello, {formState.name}!</p>
+        ) : (
+          <div>
+            <input
+              ref={inputRef}
+              className="border rounded px-2 py-1 mr-2"
+              placeholder="Enter your name"
+            />
+            <button
+              className="px-4 py-2 bg-purple-500 text-white rounded"
+              onClick={() =>
+                dispatchForm({
+                  type: "SUBMIT",
+                  payload: inputRef.current.value,
+                })
+              }
+            >
+              Submit
+            </button>
+          </div>
+        )}
+        {formState.submitted && (
+          <button
+            className="mt-2 px-4 py-2 bg-gray-500 text-white rounded"
+            onClick={() => dispatchForm({ type: "RESET" })}
+          >
+            Reset
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// === App Wrapper ===
+// Providing Context and Redux to the App.
+const AppWrapper = () => (
+  <AppContext.Provider value={{ appName: "React All-in-One Example" }}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </AppContext.Provider>
+);
+
+export default AppWrapper;

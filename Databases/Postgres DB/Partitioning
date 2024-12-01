@@ -1,0 +1,112 @@
+Partitioning is a technique in databases where a large table is divided into smaller, more manageable pieces called partitions. Each partition can be queried or maintained individually. Here’s an explanation of the most common partitioning strategies:
+
+1. Partition by Range
+    Definition: Data is divided into partitions based on a range of values in a specified column.
+    How it Works:
+    Rows are stored in a partition if their values in the partition key column fall within a defined range.
+    Example:
+    sql
+    Copy code
+    CREATE TABLE sales (
+        id SERIAL,
+        sale_date DATE,
+        amount NUMERIC
+    ) PARTITION BY RANGE (sale_date);
+
+    CREATE TABLE sales_2024_q1 PARTITION OF sales
+        FOR VALUES FROM ('2024-01-01') TO ('2024-04-01');
+    CREATE TABLE sales_2024_q2 PARTITION OF sales
+        FOR VALUES FROM ('2024-04-01') TO ('2024-07-01');
+    Use Case:
+    When dealing with sequential data such as dates, timestamps, or numerical IDs.
+    E.g., logs, time-series data, financial transactions.
+    Advantages:
+    Efficient range-based queries.
+    Smaller partitions reduce query and maintenance costs.
+    Limitations:
+    Not ideal for data without clear ranges or with uniform distribution.
+2. Partition by List
+    Definition: Data is divided into partitions based on a list of discrete values in a specified column.
+    How it Works:
+    Rows are stored in a partition if their value matches one in the list of predefined values for that partition.
+    Example:
+    sql
+    Copy code
+    CREATE TABLE employees (
+        id SERIAL,
+        department TEXT,
+        name TEXT
+    ) PARTITION BY LIST (department);
+
+    CREATE TABLE employees_hr PARTITION OF employees
+        FOR VALUES IN ('HR');
+    CREATE TABLE employees_engineering PARTITION OF employees
+        FOR VALUES IN ('Engineering');
+    CREATE TABLE employees_sales PARTITION OF employees
+        FOR VALUES IN ('Sales');
+    Use Case:
+    When the data can be grouped into well-defined categories.
+    E.g., departmental data, geographic locations, or product categories.
+    Advantages:
+    Simplifies category-based queries and management.
+    Easy to add or remove partitions as new categories emerge.
+    Limitations:
+    Not suitable for datasets without clear categories.
+3. Partition by Hash
+    Definition: Data is divided into partitions based on the result of a hash function applied to the values in a specified column.
+    How it Works:
+    The hash function determines which partition a row belongs to, distributing data evenly across partitions.
+    Example:
+    sql
+    Copy code
+    CREATE TABLE orders (
+        id SERIAL,
+        customer_id INT,
+        order_date DATE
+    ) PARTITION BY HASH (customer_id);
+
+    CREATE TABLE orders_p1 PARTITION OF orders FOR VALUES WITH (MODULUS 4, REMAINDER 0);
+    CREATE TABLE orders_p2 PARTITION OF orders FOR VALUES WITH (MODULUS 4, REMAINDER 1);
+    CREATE TABLE orders_p3 PARTITION OF orders FOR VALUES WITH (MODULUS 4, REMAINDER 2);
+    CREATE TABLE orders_p4 PARTITION OF orders FOR VALUES WITH (MODULUS 4, REMAINDER 3);
+    Use Case:
+    When you need even distribution of data across partitions, such as for large-scale, uniformly distributed datasets.
+    E.g., partitioning by customer_id for a multi-tenant system.
+    Advantages:
+    Prevents data skew.
+    Balances load across partitions.
+    Limitations:
+    Does not support range-based queries efficiently.
+    Hard to predict which partition a value will fall into without the hash function.
+4. Multi-Level Partitioning
+    Definition: Combines two or more partitioning strategies, where each level of partitioning applies a different method.
+    How it Works:
+    The first level partitions data using one strategy, and each partition is further divided into sub-partitions using another strategy.
+    Example:
+    sql
+    Copy code
+    CREATE TABLE sales (
+        id SERIAL,
+        sale_date DATE,
+        region TEXT,
+        amount NUMERIC
+    ) PARTITION BY RANGE (sale_date);
+
+    CREATE TABLE sales_2024 PARTITION OF sales
+        FOR VALUES FROM ('2024-01-01') TO ('2025-01-01')
+        PARTITION BY LIST (region);
+
+    CREATE TABLE sales_2024_us PARTITION OF sales_2024
+        FOR VALUES IN ('US');
+    CREATE TABLE sales_2024_europe PARTITION OF sales_2024
+        FOR VALUES IN ('Europe');
+    Use Case:
+    When a single partitioning strategy isn’t sufficient to optimize queries.
+    E.g., sales data partitioned by year (range) and then by region (list).
+    Advantages:
+    Combines the benefits of multiple strategies.
+    Optimizes complex query patterns.
+    Limitations:
+    Adds complexity to schema design and maintenance.
+    Potentially increases query planning overhead.
+
