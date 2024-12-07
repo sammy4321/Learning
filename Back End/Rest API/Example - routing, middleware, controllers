@@ -1,0 +1,80 @@
+const express = require('express');
+const app = express();
+
+// Middleware to parse JSON request bodies
+app.use(express.json());
+
+// ===================== Middleware =====================
+const logger = (req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  next(); // Move to the next middleware or route handler
+};
+
+// Apply logger middleware globally
+app.use(logger);
+
+// ===================== Data =====================
+let tasks = [
+  { id: 1, title: 'Task 1', completed: false },
+  { id: 2, title: 'Task 2', completed: true },
+];
+
+// ===================== Controllers =====================
+const getAllTasks = (req, res) => {
+  res.json(tasks);
+};
+
+const getTaskById = (req, res) => {
+  const taskId = parseInt(req.params.id, 10);
+  const task = tasks.find((t) => t.id === taskId);
+  if (task) {
+    res.json(task);
+  } else {
+    res.status(404).json({ message: 'Task not found' });
+  }
+};
+
+const createTask = (req, res) => {
+  const { title, completed } = req.body;
+  const newTask = { id: tasks.length + 1, title, completed: !!completed };
+  tasks.push(newTask);
+  res.status(201).json(newTask);
+};
+
+const updateTask = (req, res) => {
+  const taskId = parseInt(req.params.id, 10);
+  const { title, completed } = req.body;
+  const task = tasks.find((t) => t.id === taskId);
+
+  if (task) {
+    task.title = title !== undefined ? title : task.title;
+    task.completed = completed !== undefined ? completed : task.completed;
+    res.json(task);
+  } else {
+    res.status(404).json({ message: 'Task not found' });
+  }
+};
+
+const deleteTask = (req, res) => {
+  const taskId = parseInt(req.params.id, 10);
+  tasks = tasks.filter((t) => t.id !== taskId);
+  res.status(204).send();
+};
+
+// ===================== Routes =====================
+const router = express.Router();
+
+router.get('/', getAllTasks);
+router.get('/:id', getTaskById);
+router.post('/', createTask); // No authentication
+router.put('/:id', updateTask); // No authentication
+router.delete('/:id', deleteTask); // No authentication
+
+// Use the router
+app.use('/api/tasks', router);
+
+// ===================== Start the Server =====================
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});

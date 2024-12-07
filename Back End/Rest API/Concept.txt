@@ -1,0 +1,62 @@
+1. Request, Header, Body
+    Requests: The client sends HTTP requests to the server with:
+
+    Method: GET, POST, PUT, DELETE
+    Headers: Metadata about the request (e.g., Content-Type, Authorization).
+    Body: Data payload sent with POST/PUT requests, usually in JSON format.
+
+2. Status Codes : Used to indicate the result of an HTTP request.
+    Common codes:
+        200 OK: Success
+        201 Created: Resource created
+        400 Bad Request: Invalid request
+        401 Unauthorized: Authentication required
+        404 Not Found: Resource not found
+        500 Internal Server Error: Server-side issue
+
+3. Routes : Define endpoints to handle different HTTP methods.
+    Example:
+        const express = require('express');
+        const app = express();
+
+        app.get('/api/users', (req, res) => res.send('GET all users'));
+        app.post('/api/users', (req, res) => res.send('Create user'));
+        app.put('/api/users/:id', (req, res) => res.send(`Update user ${req.params.id}`));
+        app.delete('/api/users/:id', (req, res) => res.send(`Delete user ${req.params.id}`));
+
+        app.listen(3000, () => console.log('Server running'));
+5. Middleware : Functions executed before the route handler.
+    Example: Logging Middleware
+        app.use((req, res, next) => {
+        console.log(`${req.method} ${req.url}`);
+        next(); // Pass control to the next middleware or route
+        });
+6. Controller : Controllers handle business logic.
+    Example: User Controller
+        const getAllUsers = (req, res) => {
+        res.json({ users: [] });
+        };
+
+        module.exports = { getAllUsers };
+7. Model : Models represent the database schema. 
+    Use Mongoose with MongoDB:
+        const mongoose = require('mongoose');
+
+        const userSchema = new mongoose.Schema({
+        name: String,
+        email: String,
+        password: String,
+        });
+
+        const User = mongoose.model('User', userSchema);
+
+        module.exports = User;
+
+8. Cursor based Pagination : Cursor: A unique identifier (e.g., ID or index) for the starting point of the next page.
+    API Response:
+        Returns the current set of rows.
+        Includes a link (or token) for the next page.
+    Advantages of Cursor-Based Pagination
+    1. No Skipping or Overlapping Data: Safer than offset-based pagination when data changes frequently (e.g., new items are added or deleted).
+    2. Efficient for Large Data: Uses a unique cursor instead of offset calculations.
+    3. Client-Friendly Navigation: Each response provides a clear path for the next set of results.
