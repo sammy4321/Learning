@@ -1,8 +1,0 @@
-This code uses the with statement to open a file for reading or writing. The file name is specified as a string, and the mode is specified as a string, which can be one of the following:
-
-r: Open the file for reading (default).
-w: Open the file for writing (create a new file if it doesn't exist, or overwrite the existing file).
-a: Open the file for appending (add to the end of the file, without overwriting the existing contents).
-x: Open the file for exclusive creation (fail if the file already exists).
-
-Also, you can use the write_lines() method to write multiple lines to the file. 

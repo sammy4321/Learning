@@ -1,3 +1,0 @@
-1. Schema Definition : GraphQL uses a schema to define the types and operations available (queries, mutations, and subscriptions).
-2. Resolver Functions : Resolvers implement the logic for fetching and modifying data based on schema operations.
-3. Subscriptions : Subscriptions enable real-time updates for specific events.
