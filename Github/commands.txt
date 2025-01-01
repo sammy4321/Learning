@@ -4,3 +4,5 @@ How to push the changes :
 2. git commit -m "Commit Message here"
 3. git pull origin main
 4. git push origin main
+List all branches : git branch -a
+Switch to a particular branch : git switch <branch-name>
