@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections;
 using all_files;
 
 public class Program
@@ -9,6 +10,64 @@ public class Program
         string firstName = "Samarth";
         string lastName = "Mohan";
         string[] names = { "Alice", "Bob", "Charlie" };
+
+        ArrayList arrayList = new ArrayList();
+        arrayList.Add(1);
+        arrayList.Add("two");
+        arrayList.Add(3.0);
+
+        foreach (var item in arrayList)
+        {
+            Console.WriteLine(item);
+        }
+
+        Hashtable hashtable = new Hashtable();
+        hashtable["one"] = 1;
+        hashtable["two"] = 2;
+        
+        Console.WriteLine(hashtable["one"]);
+
+        Stack<string> stack = new Stack<string>();
+        stack.Push("First");
+        stack.Push("Second");
+        stack.Push("Third");
+
+        while (stack.Count > 0)
+        {
+            Console.WriteLine(stack.Pop());
+        }
+
+        Queue<string> queue = new Queue<string>();
+        queue.Enqueue("First");
+        queue.Enqueue("Second");
+        queue.Enqueue("Third");
+
+        while (queue.Count > 0)
+        {
+            Console.WriteLine(queue.Dequeue());
+        }
+
+        Dictionary<string, int> ages = new Dictionary<string, int>
+        {
+            { "Alice", 30 },
+            { "Bob", 25 }
+        };
+
+        ages["Charlie"] = 35;
+
+        foreach (KeyValuePair<string, int> pair in ages)
+        {
+            Console.WriteLine($"{pair.Key}: {pair.Value}");
+        }
+
+        List<int> numbers = new List<int> { 1, 2, 3, 4, 5 };
+        numbers.Add(6);
+
+        foreach (int number in numbers)
+        {
+            Console.WriteLine(number);
+        }
+
 
         if (age > 18)
         {
