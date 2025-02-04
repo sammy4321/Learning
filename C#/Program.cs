@@ -133,8 +133,8 @@ public class Person
         LastName = lastName;
     }
 
-    public string return_fullname(string message){
-        return FirstName + LastName + message;
+    public string? return_fullname(string message){
+        return FirstName + LastName + message; // Returns a string or null
     }
     public void sample_func() => Console.WriteLine("Hello World");
 }
