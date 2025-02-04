@@ -61,6 +61,8 @@ public class Program
         }
 
         List<int> numbers = new List<int> { 1, 2, 3, 4, 5 };
+        var sampleList = new List<int>{1,2,3,4,5}; // Can also do something like this for all collections;
+        var sampleList = new List<int>(); // Can also do something like this for all empty collections to ensure type strict
         numbers.Add(6);
 
         foreach (int number in numbers)
