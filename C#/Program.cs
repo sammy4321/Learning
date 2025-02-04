@@ -136,6 +136,7 @@ public class Person
     public string return_fullname(string message){
         return FirstName + LastName + message;
     }
+    public void sample_func() => Console.WriteLine("Hello World");
 }
 
 public class Pair<T> {
