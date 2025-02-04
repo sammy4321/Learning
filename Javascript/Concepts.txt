@@ -1,3 +1,0 @@
-== vs === : 
-1. == : Loose Equality. If the values are of different types, JavaScript attempts type coercion. 
-2. === : Strict Equality. If the values are of different types, JavaScript does not perform type coercion.
